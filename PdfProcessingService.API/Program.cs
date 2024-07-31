@@ -57,6 +57,6 @@ app.MapPost("api/pdf/embed-attachment", (EmbedAttachmentModel model) =>
             ErrorType.Validation => Results.BadRequest(error.Message),
             _ => Results.Extensions.InternalServerError(error.Message)
         });
-}).WithOpenApi();
+});
 
 app.Run();

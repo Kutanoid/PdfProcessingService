@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using PdfProcessingService.API.Extensions;
+using SkiaSharp;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
 using Syncfusion.Pdf.Interactive;
@@ -102,6 +103,14 @@ namespace PdfProcessingService.API.Services
             }
         }
 
+        public static IResult ProduceErrorResponse(Error error)
+        {
+            return error.Type switch
+            {
+                ErrorType.Validation => Results.BadRequest(error.Message),
+                _ => Results.Extensions.InternalServerError(error.Message)
+            };
+        }
 
         private static void SubstituteFont(object sender, PdfFontEventArgs font)
         {
